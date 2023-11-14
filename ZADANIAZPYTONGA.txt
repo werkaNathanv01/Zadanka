@@ -1,0 +1,96 @@
+zad1
+w szkole
+zad2
+def znajdz_dzielniki(n):
+    dzielniki = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            dzielniki.append(i)
+    return dzielniki
+
+def pierwsza(x):
+    if x < 2:
+        return False
+    for i in range(2, int(x**0.5) + 1):
+        if x % i == 0:
+            return False
+    return True
+
+def dzielniki_naturalne_i_pierwsze():
+    try:
+        n = int(input("Podaj liczbę naturalną n: "))
+        if n <= 0:
+            print("Podana liczba musi być większa od zera.")
+            return
+
+        print(f"Dzielniki naturalne liczby {n}: {znajdz_dzielniki(n)}")
+        print(f"Dzielniki pierwsze liczby {n}: {[i for i in znajdz_dzielniki(n) if pierwsza(i)]}")
+    except ValueError:
+        print("Podano nieprawidłową liczbę.")
+
+dzielniki_naturalne_i_pierwsze()
+
+zad3
+def suma_cyfr(liczba):
+    suma = 0
+    while liczba > 0:
+        suma += liczba % 10
+        liczba //= 10
+    return suma
+
+def czy_podzielna_przez_3(liczba):
+    while liczba >= 10:
+        liczba = suma_cyfr(liczba)
+    return liczba in {3, 6, 9}
+
+try:
+    liczba = int(input("Podaj liczbę naturalną: "))
+    if liczba < 0:
+        print("Podana liczba musi być liczbą naturalną.")
+    else:
+        if czy_podzielna_przez_3(liczba):
+            print(f"Liczba {liczba} jest podzielna przez 3.")
+        else:
+            print(f"Liczba {liczba} nie jest podzielna przez 3.")
+except ValueError:
+    print("Podano nieprawidłową liczbę.")
+
+zad4
+def czy_pierwsza(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def czy_bliźniacze(a, b):
+    return czy_pierwsza(a) and czy_pierwsza(b) and abs(a - b) == 2
+
+def generuj_bliźniacze(k):
+    pary_bliźniacze = []
+    for i in range(2, k):
+        if czy_bliźniacze(i, i+2):
+            pary_bliźniacze.append((i, i+2))
+    return pary_bliźniacze
+
+try:
+    x = int(input("Podaj pierwszą liczbę naturalną: "))
+    y = int(input("Podaj drugą liczbę naturalną: "))
+
+    if czy_bliźniacze(x, y):
+        print(f"Liczby {x} i {y} są liczbami bliźniaczymi.")
+    else:
+        print(f"Liczby {x} i {y} nie są liczbami bliźniaczymi.")
+except ValueError:
+    print("Podano nieprawidłowe liczby.")
+
+try:
+    k = int(input("Podaj liczbę k: "))
+    if k < 2:
+        print("Liczba k musi być większa niż 2.")
+    else:
+        pary = generuj_bliźniacze(k)
+        print(f"Pary liczb bliźniaczych nie większe niż {k}: {pary}")
+except ValueError:
+    print("Podano nieprawidłową liczbę k.")
